@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CaseFiles } from "@/components/CaseFiles";
 import { CommandPalette, PaletteButton } from "@/components/CommandPalette";
 import { MetricsReel } from "@/components/MetricsReel";
@@ -40,6 +41,7 @@ export default function Home() {
             <a href="#work" className="label hidden hover:!text-bright sm:inline">Work</a>
             <a href="#proof" className="label hidden hover:!text-bright sm:inline">Proof</a>
             <a href="#offers" className="label hidden hover:!text-bright sm:inline">Offers</a>
+            <Link href="/life" className="label hover:!text-bright">Life</Link>
             <PaletteButton />
             <a href="#contact" className="label !text-bright">Contact</a>
           </nav>
