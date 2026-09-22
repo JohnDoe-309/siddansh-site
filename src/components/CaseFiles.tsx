@@ -25,13 +25,13 @@ export function CaseFiles() {
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2 md:[&>*:last-child:nth-child(odd)]:col-span-2 xl:grid-cols-3 xl:[&>*:last-child:nth-child(3n+1)]:col-span-3">
-        {cases.map((c) => (
+        {cases.map((c, i) => (
           <button
             key={c.id}
             type="button"
             onClick={() => open(c.id)}
             data-cta={`case_${c.id}`}
-            className="panel group flex flex-col gap-5 p-5 text-left transition-colors hover:border-line-2 hover:bg-panel-2 sm:p-6"
+            className={`panel group flex flex-col gap-5 p-5 text-left transition-colors hover:border-line-2 hover:bg-panel-2 sm:p-6 ${i === 0 ? "md:col-span-2 xl:col-span-3" : ""}`}
           >
             <span className="flex items-start justify-between gap-3">
               <span>
@@ -40,9 +40,23 @@ export function CaseFiles() {
               </span>
               <ModeBadge mode={c.mode} />
             </span>
-            <span>
-              <MetricLine metric={c.metric} size="text-[clamp(2.5rem,7vw,3.25rem)]" />
-              <span className="mt-2 block text-muted">{c.caption}</span>
+            <span className={i === 0 ? "grid gap-6 lg:grid-cols-[1fr_1.1fr] lg:items-end" : ""}>
+              <span className="block">
+                <MetricLine metric={c.metric} size={i === 0 ? "text-[clamp(3rem,9vw,4.5rem)]" : "text-[clamp(2.5rem,7vw,3.25rem)]"} />
+                <span className="mt-2 block text-muted">{c.caption}</span>
+              </span>
+              {i === 0 && (
+                <span className="grid gap-3 border-t border-line pt-4 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+                  <span className="block">
+                    <span className="label">Problem</span>
+                    <span className="mt-1 block text-text">{c.problem}</span>
+                  </span>
+                  <span className="block">
+                    <span className="label">Built</span>
+                    <span className="mt-1 block text-text">{c.built}</span>
+                  </span>
+                </span>
+              )}
             </span>
             <span className="mt-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-line pt-4">
               <span className="font-semibold text-text">{c.title}</span>

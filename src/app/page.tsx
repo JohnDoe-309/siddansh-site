@@ -4,7 +4,7 @@ import { CommandPalette, PaletteButton } from "@/components/CommandPalette";
 import { MetricsReel } from "@/components/MetricsReel";
 import { Pipeline } from "@/components/Pipeline";
 import { ReelVideo } from "@/components/ReelVideo";
-import { FX, cases, experience, links, offers, person, principles, projects, record, reels, testimonials } from "@/content/site";
+import { FX, cases, experience, faq, links, offers, person, principles, projects, record, reels, testimonials } from "@/content/site";
 
 function SectionHead({ id, label, title, aside }: { id: string; label: string; title: string; aside?: string }) {
   return (
@@ -42,7 +42,7 @@ export default function Home() {
             <a href="#offers" className="label hidden hover:!text-bright sm:inline">Offers</a>
             <Link href="/life" data-cta="nav_life" className="label hover:!text-bright">Life</Link>
             <PaletteButton />
-            <a href="#contact" className="label !text-bright">Contact</a>
+            <a href="#contact" data-cta="nav_contact" className="label rounded-full border border-line-2 px-3 py-1.5 !text-bright hover:border-dim hover:bg-panel-2">Contact</a>
           </nav>
         </div>
       </header>
@@ -60,6 +60,9 @@ export default function Home() {
                 {person.headline}
               </h1>
               <p className="mt-6 max-w-[52ch] text-[1.125rem] text-muted">{person.sub}</p>
+              <p className="mt-5 max-w-[52ch] text-[1.0625rem] text-text">
+                Send me the workflow that eats the most hours. I&apos;ll tell you whether it&apos;s worth an audit.
+              </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 {links.booking ? (
                   <a href={links.booking} target="_blank" rel="noopener noreferrer" data-cta="hero_book" className="btn btn-primary">Book a call</a>
@@ -236,6 +239,20 @@ export default function Home() {
             </div>
           </section>
         )}
+
+        <section id="faq" className="scroll-mt-16 border-t border-line py-16 sm:py-24" aria-labelledby="faq-title">
+          <div className="wrap">
+            <SectionHead id="faq" label="Before you ask" title="The five questions I always get." />
+            <dl className="grid gap-4 md:grid-cols-2">
+              {faq.map((item) => (
+                <div key={item.q} className="panel p-5 sm:p-6">
+                  <dt className="text-[1.0625rem] font-semibold text-bright">{item.q}</dt>
+                  <dd className="mt-3 text-muted">{item.a}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
 
         <section id="contact" className="scroll-mt-16 border-t border-line py-20 sm:py-28" aria-labelledby="contact-title">
           <div className="wrap">

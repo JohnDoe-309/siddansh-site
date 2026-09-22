@@ -316,6 +316,30 @@ export const projects: Project[] = [
   },
 ];
 
+// Every answer here restates something already published elsewhere on this page.
+export const faq = [
+  {
+    q: "What do I get in the first two weeks?",
+    a: "A map of the manual work in one function, hours and volume measured per workflow, a backlog ranked by hours returned, and a scoped first sprint. You keep all of it whether or not we carry on.",
+  },
+  {
+    q: "Do you build it, or just advise?",
+    a: "I build. At Soma I wrote the agent harness, the revenue reconciliation and the servicing side panel hands-on, with AI coding agents. At Meesho and FirstClub I led the builds as the PM. Every case file on this page says which of the two it was.",
+  },
+  {
+    q: "We tried automating this before and it broke. Why is this different?",
+    a: "Because the exception path is designed first. The repeatable path runs untouched; anything off-pattern goes to a named person with the context attached. The agent harness verifies its own work by reading back every write before it counts as done.",
+  },
+  {
+    q: "What happens when you leave?",
+    a: "Every build ships with logging, a runbook and an owner on your side. That's the handover condition, not a nice-to-have. It keeps running after I'm gone.",
+  },
+  {
+    q: "How will we know it worked?",
+    a: "The baseline gets measured before anything is built, so the result is a before and an after rather than an estimate. Every number on this page carries the measurement behind it; open any case file to see it.",
+  },
+] as const;
+
 // Things that are real but have no headline number of their own.
 export const record = [
   { label: "Voice agent", body: "A carrier-call voice agent with personas, playbooks and hold-and-transfer, benchmarked against a call simulator across 8 scenarios with 51 passing tests. A prototype: it has never placed a live call." },
