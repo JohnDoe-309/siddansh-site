@@ -3,7 +3,8 @@ import { CommandPalette, PaletteButton } from "@/components/CommandPalette";
 import { MetricsReel } from "@/components/MetricsReel";
 import { Pipeline } from "@/components/Pipeline";
 import { ReelVideo } from "@/components/ReelVideo";
-import { FX, experience, links, offers, person, principles, projects, reels, testimonials } from "@/content/site";
+import { VoiceAgent } from "@/components/VoiceAgent";
+import { FX, cases, experience, links, offers, person, principles, projects, record, reels, testimonials } from "@/content/site";
 
 function SectionHead({ id, label, title, aside }: { id: string; label: string; title: string; aside?: string }) {
   return (
@@ -67,9 +68,15 @@ export default function Home() {
                 <a href="#work" className="btn">Open the case files</a>
               </div>
               <p className="label mt-10">Worked at</p>
-              <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-[1.0625rem] font-semibold text-text">
+              <ul className="mt-4 flex flex-wrap items-center gap-x-7 gap-y-3">
                 {experience.map((e) => (
-                  <li key={e.org}>{e.org}</li>
+                  <li key={e.org} className="flex items-center gap-2.5">
+                    {e.mark && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={e.mark} alt="" width={22} height={22} className="size-[22px] rounded-[4px] object-contain opacity-80 grayscale transition duration-200 hover:opacity-100 hover:grayscale-0" />
+                    )}
+                    <span className="text-[1.0625rem] font-semibold text-text">{e.org}</span>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -83,8 +90,17 @@ export default function Home() {
 
         <section id="work" className="scroll-mt-16 border-t border-line py-16 sm:py-24" aria-labelledby="work-title">
           <div className="wrap">
-            <SectionHead id="work" label="Case files" title="Six systems, each measured." aside="Open any file for the problem, what I built, how it flows and how the number was measured." />
+            <SectionHead id="work" label="Case files" title={`${cases.length} systems, each measured.`} aside="Open any file for the problem, what I built, how it flows and how the number was measured." />
             <CaseFiles />
+
+            <dl className="mt-10 grid gap-x-6 gap-y-4 border-t border-line pt-8 sm:grid-cols-[7rem_1fr]">
+              {record.map((r) => (
+                <div key={r.label} className="contents">
+                  <dt className="label pt-1">{r.label}</dt>
+                  <dd className="text-muted">{r.body}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 
@@ -115,7 +131,7 @@ export default function Home() {
               </div>
             </article>
 
-            <div className="mt-4 grid gap-4 md:grid-cols-3">
+            <div className="mt-4 grid gap-4 md:grid-cols-3 md:[&>*:last-child:nth-child(3n+1)]:col-span-3">
               {[atlas, ...others].map((p) => (
                 <article key={p.id} className="panel flex flex-col gap-4 p-5 sm:p-6">
                   <h3 className="text-[1.25rem] font-bold text-bright" style={{ fontStretch: "112%" }}>{p.title}</h3>
@@ -134,6 +150,13 @@ export default function Home() {
                 </article>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section id="voice" className="scroll-mt-16 border-t border-line py-16 sm:py-24" aria-labelledby="voice-title">
+          <div className="wrap">
+            <SectionHead id="voice" label="Voice agent" title="Ask it about the work." aside="It answers out loud from what's published on this page, and refuses anything it can't source. Press the mic, or play the demo." />
+            <VoiceAgent />
           </div>
         </section>
 

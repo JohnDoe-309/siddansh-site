@@ -24,7 +24,7 @@ export function CaseFiles() {
 
   return (
     <>
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 md:[&>*:last-child:nth-child(odd)]:col-span-2 xl:grid-cols-3 xl:[&>*:last-child:nth-child(3n+1)]:col-span-3">
         {cases.map((c) => (
           <button
             key={c.id}

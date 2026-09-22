@@ -50,6 +50,7 @@ export const metrics: Metric[] = [
   { label: "Analytics", value: "−95%", unit: "analyst SQL time", caption: "An MCP integration on the BI stack, rolled out company-wide.", org: "FirstClub" },
   { label: "Marketplace fulfilment", from: "40%", value: "<5%", unit: "order leakage", caption: "Fixed across pricing, discovery and inventory.", org: "Meesho" },
   { label: "Document spine", value: "13,656", unit: "documents", caption: "indexed by content into one source of truth; 32% of file paths were duplicates. Rebuilt every 10 minutes.", org: "Soma" },
+  { label: "Client comms", value: "431", unit: "texts dispatched", caption: "to 258 clients across 25 dispatch days, each inside that client's own time-zone window.", org: "Soma" },
   { label: "Patent", value: "20x", unit: "faster", caption: "Neural architecture search optimizer, patented and presented at a top-tier computer vision conference.", org: "Samsung R&D" },
 ];
 
@@ -140,6 +141,31 @@ export const cases: CaseFile[] = [
     mode: "hands-on",
   },
   {
+    id: "comms",
+    org: "Soma",
+    orgNote: "AI-native US commercial insurance brokerage",
+    title: "Client comms dispatcher",
+    metric: { value: "431", unit: "texts dispatched" },
+    caption: "To 258 clients over 25 dispatch days, with nobody picking the list.",
+    problem: "Overdue payments were chased client by client, and every message had to land inside that client's own business hours.",
+    built: "A dispatcher that decides who to contact each day, sends inside the time-zone window derived from the client's ZIP, and drops anyone whose reply shows they have paid or set up autopay.",
+    flow: [
+      [{ id: "due", label: "Overdue accounts" }],
+      [{ id: "pick", label: "Pick today's list", detail: "36–124/day" }],
+      [{ id: "window", label: "Time-zone window", detail: "by ZIP" }],
+      [{ id: "send", label: "Text + email" }],
+      [{ id: "reply", label: "Read replies", detail: "suppress on payment" }],
+    ],
+    facts: [
+      "431 texts with a provider message id, to 258 accounts, 12 Aug – 11 Sep 2026",
+      "25 dispatch days; the daily list ran 36–124 accounts",
+      "Reply detection calibrated against 66 inbound texts",
+      "A dispatcher, not a conversational agent: it decides who and when, never what to say back",
+    ],
+    measured: "Dispatch-window state files, 12 Aug – 11 Sep 2026.",
+    mode: "hands-on",
+  },
+  {
     id: "losses",
     org: "FirstClub",
     orgNote: "Series B India quick-commerce",
@@ -205,11 +231,13 @@ export const cases: CaseFile[] = [
   },
 ];
 
+// mark: an official logo file in /public/logos. Drop a PNG or SVG in and add it here;
+// an entry with no mark shows its name as a wordmark instead.
 export const experience = [
-  { org: "Soma", note: "AI-native US commercial insurance brokerage", role: "Operations & automation", period: "Jul – Oct 2026" },
-  { org: "FirstClub", note: "Series B quick-commerce, India", role: "Product Manager · fulfilment, supply chain, delivery promise", period: "Dec 2025 – Jul 2026" },
-  { org: "Meesho", note: "E-commerce marketplace, India", role: "Product Manager · Warehousing-as-a-Service, sole PM", period: "Apr 2024 – Dec 2025" },
-  { org: "Samsung R&D", note: "Bangalore", role: "APM, first-ever cohort · ML intern (patent)", period: "Jul 2022 – Apr 2024" },
+  { org: "Soma", mark: "/logos/soma.png", note: "AI-native US commercial insurance brokerage", role: "Operations & automation", period: "Jul – Oct 2026" },
+  { org: "FirstClub", mark: null, note: "Series B quick-commerce, India", role: "Product Manager · fulfilment, supply chain, delivery promise", period: "Dec 2025 – Jul 2026" },
+  { org: "Meesho", mark: null, note: "E-commerce marketplace, India", role: "Product Manager · Warehousing-as-a-Service, sole PM", period: "Apr 2024 – Dec 2025" },
+  { org: "Samsung R&D", mark: "/logos/samsung.png", note: "Bangalore", role: "APM, first-ever cohort · ML intern (patent)", period: "Jul 2022 – Apr 2024" },
 ] as const;
 
 export type Reel = { src: string; poster: string; title: string };
@@ -217,7 +245,7 @@ export const reels: Reel[] = [
   { src: "/reels/perahera_text.mp4", poster: "/reels/perahera_text.jpg", title: "Perahera, Kandy" },
   { src: "/reels/dive_drift.mp4", poster: "/reels/dive_drift.jpg", title: "Drift dive" },
   { src: "/reels/art_himalayas.mp4", poster: "/reels/art_himalayas.jpg", title: "The Himalayas" },
-  { src: "/reels/varanasi_kashi.mp4", poster: "/reels/varanasi_kashi.jpg", title: "Kashi" },
+  { src: "/reels/langkawi.mp4", poster: "/reels/langkawi.jpg", title: "Langkawi" },
 ];
 
 export type Project = {
@@ -250,6 +278,15 @@ export const projects: Project[] = [
     demo: links.atlasDemo,
   },
   {
+    id: "gbrain",
+    title: "Personal ops brain",
+    metric: { value: "133", unit: "bot pushes" },
+    body: "A two-way Telegram bot I ran for myself from June to August 2026: journal, decisions, habits, todos and a daily question graded A to E. Retired when I moved the same brain onto an iMessage rail.",
+    stack: "Python · Telegram Bot API",
+    repo: null,
+    demo: null,
+  },
+  {
     id: "quant",
     title: "Quant research stack",
     metric: { value: "1", unit: "of 25,267" },
@@ -268,6 +305,13 @@ export const projects: Project[] = [
     demo: null,
   },
 ];
+
+// Things that are real but have no headline number of their own.
+export const record = [
+  { label: "Voice agent", body: "A carrier-call voice agent with personas, playbooks and hold-and-transfer, benchmarked against a call simulator across 8 scenarios with 51 passing tests. A prototype: it has never placed a live call." },
+  { label: "Data spine", body: "One source of truth for policies and documents: 13,656 documents indexed by content, 32% duplicates removed, rebuilt every 10 minutes." },
+  { label: "Patent", body: "Neural architecture search: an optimizer 20x faster than existing algorithms, patented and presented at a top-tier computer vision conference." },
+] as const;
 
 export const principles = [
   { title: "No baseline, no build.", body: "Hours, volume and error rate get measured before anything is built. The result is a before and an after, not an estimate." },
