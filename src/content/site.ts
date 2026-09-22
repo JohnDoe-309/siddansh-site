@@ -278,6 +278,15 @@ export const projects: Project[] = [
     demo: links.atlasDemo,
   },
   {
+    id: "voice",
+    title: "Voice agent, no backend",
+    metric: { value: "0", unit: "keys or servers" },
+    body: "A voice agent that answers spoken questions about my work. The browser does the speech recognition and the speaking; answers are retrieved from published content and cited; anything it can't source, it refuses. Nothing to spend, nothing to leak.",
+    stack: "TypeScript · Web Speech API",
+    repo: "https://github.com/JohnDoe-309/siddansh-site/blob/main/src/components/VoiceAgent.tsx",
+    demo: null,
+  },
+  {
     id: "gbrain",
     title: "Personal ops brain",
     metric: { value: "133", unit: "bot pushes" },

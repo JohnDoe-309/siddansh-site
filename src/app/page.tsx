@@ -4,7 +4,6 @@ import { CommandPalette, PaletteButton } from "@/components/CommandPalette";
 import { MetricsReel } from "@/components/MetricsReel";
 import { Pipeline } from "@/components/Pipeline";
 import { ReelVideo } from "@/components/ReelVideo";
-import { VoiceAgent } from "@/components/VoiceAgent";
 import { FX, cases, experience, links, offers, person, principles, projects, record, reels, testimonials } from "@/content/site";
 
 function SectionHead({ id, label, title, aside }: { id: string; label: string; title: string; aside?: string }) {
@@ -155,12 +154,6 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="voice" className="scroll-mt-16 border-t border-line py-16 sm:py-24" aria-labelledby="voice-title">
-          <div className="wrap">
-            <SectionHead id="voice" label="Voice agent" title="Ask it about the work." aside="It answers out loud from what's published on this page, and refuses anything it can't source. Press the mic, or play the demo." />
-            <VoiceAgent />
-          </div>
-        </section>
 
         <section id="experience" className="scroll-mt-16 border-t border-line py-16 sm:py-24" aria-labelledby="experience-title">
           <div className="wrap">
