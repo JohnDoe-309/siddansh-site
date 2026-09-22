@@ -30,6 +30,7 @@ export function CaseFiles() {
             key={c.id}
             type="button"
             onClick={() => open(c.id)}
+            data-cta={`case_${c.id}`}
             className="panel group flex flex-col gap-5 p-5 text-left transition-colors hover:border-line-2 hover:bg-panel-2 sm:p-6"
           >
             <span className="flex items-start justify-between gap-3">

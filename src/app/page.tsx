@@ -20,9 +20,9 @@ function SectionHead({ id, label, title, aside }: { id: string; label: string; t
   );
 }
 
-function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
+function ExternalLink({ href, children, cta }: { href: string; children: React.ReactNode; cta?: string }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="label inline-flex items-center gap-1.5 !text-text underline decoration-line-2 underline-offset-4 hover:decoration-bright">
+    <a href={href} target="_blank" rel="noopener noreferrer" data-cta={cta} className="label inline-flex items-center gap-1.5 !text-text underline decoration-line-2 underline-offset-4 hover:decoration-bright">
       {children} ↗
     </a>
   );
@@ -40,7 +40,7 @@ export default function Home() {
             <a href="#work" className="label hidden hover:!text-bright sm:inline">Work</a>
             <a href="#proof" className="label hidden hover:!text-bright sm:inline">Proof</a>
             <a href="#offers" className="label hidden hover:!text-bright sm:inline">Offers</a>
-            <Link href="/life" className="label hover:!text-bright">Life</Link>
+            <Link href="/life" data-cta="nav_life" className="label hover:!text-bright">Life</Link>
             <PaletteButton />
             <a href="#contact" className="label !text-bright">Contact</a>
           </nav>
@@ -60,13 +60,17 @@ export default function Home() {
                 {person.headline}
               </h1>
               <p className="mt-6 max-w-[52ch] text-[1.125rem] text-muted">{person.sub}</p>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-8 flex flex-wrap items-center gap-3">
                 {links.booking ? (
-                  <a href={links.booking} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Book a call</a>
+                  <a href={links.booking} target="_blank" rel="noopener noreferrer" data-cta="hero_book" className="btn btn-primary">Book a call</a>
                 ) : (
-                  <a href={`mailto:${person.email}`} className="btn btn-primary">Email me</a>
+                  <a href={`mailto:${person.email}`} data-cta="hero_email" className="btn btn-primary">Email me</a>
                 )}
-                <a href="#work" className="btn">Open the case files</a>
+                <a href="#work" data-cta="hero_cases" className="btn">Open the case files</a>
+                <span className="label flex items-center gap-2 !text-muted">
+                  <span className="live-dot" aria-hidden="true" />
+                  {person.availability}
+                </span>
               </div>
               <p className="label mt-10">Worked at</p>
               <ul className="mt-4 flex flex-wrap items-center gap-x-7 gap-y-3">
@@ -144,8 +148,8 @@ export default function Home() {
                   <p className="label mt-auto">{p.stack}</p>
                   {(p.demo || p.repo) && (
                     <div className="flex flex-wrap gap-4">
-                      {p.demo && <ExternalLink href={p.demo}>Live demo</ExternalLink>}
-                      {p.repo && <ExternalLink href={p.repo}>Source</ExternalLink>}
+                      {p.demo && <ExternalLink href={p.demo} cta={`demo_${p.id}`}>Live demo</ExternalLink>}
+                      {p.repo && <ExternalLink href={p.repo} cta={`repo_${p.id}`}>Source</ExternalLink>}
                     </div>
                   )}
                 </article>
@@ -242,7 +246,7 @@ export default function Home() {
             <p className="mt-5 text-muted">I&apos;ll tell you whether it&apos;s worth an audit.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               {links.booking && <a href={links.booking} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Book a call</a>}
-              <a href={`mailto:${person.email}`} className={`btn ${links.booking ? "" : "btn-primary"}`}>{person.email}</a>
+              <a href={`mailto:${person.email}`} data-cta="contact_email" className={`btn ${links.booking ? "" : "btn-primary"}`}>{person.email}</a>
               {links.linkedin && <a href={links.linkedin} target="_blank" rel="noopener noreferrer" className="btn">LinkedIn</a>}
               {links.github && <a href={links.github} target="_blank" rel="noopener noreferrer" className="btn">GitHub</a>}
             </div>

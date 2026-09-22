@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Telemetry } from "@/components/Telemetry";
 import { person } from "@/content/site";
 import "./globals.css";
 
@@ -38,7 +41,12 @@ export const viewport: Viewport = { themeColor: "#08090b", colorScheme: "dark" }
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${archivo.variable} ${plexMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Telemetry />
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   );
 }

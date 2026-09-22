@@ -7,6 +7,7 @@ export const person = {
   name: "Siddansh Bohra",
   email: "sidkbohra@gmail.com",
   location: "Bengaluru, India",
+  availability: "Taking work from 2 October",
   headline: "I build the systems that kill operational backlogs.",
   sub: "Product manager at Meesho and FirstClub, running fulfilment and supply chain. At Soma I built the agent harness, the revenue reconciliation and the servicing tools hands-on, with AI coding agents.",
 } as const;
