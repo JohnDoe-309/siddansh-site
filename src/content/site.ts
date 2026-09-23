@@ -68,6 +68,7 @@ export type CaseFile = {
   flow: FlowNode[][];
   facts: string[];
   measured: string;
+  stillOpen?: string;
   mode: "hands-on" | "led";
 };
 
@@ -116,6 +117,7 @@ export const cases: CaseFile[] = [
       "COI autopilot, every 10 minutes: 1,058 certificate requests tracked since 18 Aug",
     ],
     measured: "Harness state and heartbeat logs, 11–22 Sep 2026.",
+    stillOpen: "Median time from request to dispatch is 262.5 seconds against a 60-second target; only 3 of 34 measured runs met it. Routing is solved, latency isn't.",
     mode: "hands-on",
   },
   {
@@ -139,6 +141,7 @@ export const cases: CaseFile[] = [
       "59 commits, sole author",
     ],
     measured: "Customer-line coverage measured over 1,066 phone numbers across 3 weeks.",
+    stillOpen: "Piloted with two reps, not the whole desk. Total panel opens aren't known either: I removed access logging on purpose, which traded measurement for privacy.",
     mode: "hands-on",
   },
   {

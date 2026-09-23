@@ -160,6 +160,13 @@ function CaseDetail({ file: c, onClose, onStep }: { file: CaseFile; onClose: () 
           </ul>
         </section>
 
+        {c.stillOpen && (
+          <section aria-label="Still open" className="rounded-md border border-live/30 bg-live/[.06] p-4">
+            <p className="label !text-live">Still open</p>
+            <p className="mt-2 text-text">{c.stillOpen}</p>
+          </section>
+        )}
+
         <p className="border-t border-line pt-4 text-[.875rem] text-dim">
           <span className="label mr-2">Measured</span>
           {c.measured}
