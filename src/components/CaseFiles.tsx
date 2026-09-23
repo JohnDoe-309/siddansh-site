@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { cases, type CaseFile } from "@/content/site";
+import { cases, person, type CaseFile } from "@/content/site";
 
 export const OPEN_CASE_EVENT = "open-case";
 
@@ -14,13 +14,43 @@ export function CaseFiles() {
     if (!found) return;
     setActive(found);
     if (!dialogRef.current?.open) dialogRef.current?.showModal();
+    // Deep link, so a case file can be sent to someone.
+    history.replaceState(null, "", `#case-${id}`);
   }, []);
+
+  const close = useCallback(() => {
+    dialogRef.current?.close();
+    history.replaceState(null, "", window.location.pathname);
+  }, []);
+
+  const step = useCallback(
+    (delta: number) => {
+      if (!active) return;
+      const i = cases.findIndex((c) => c.id === active.id);
+      open(cases[(i + delta + cases.length) % cases.length].id);
+    },
+    [active, open],
+  );
 
   useEffect(() => {
     const onOpen = (e: Event) => open((e as CustomEvent<string>).detail);
     window.addEventListener(OPEN_CASE_EVENT, onOpen);
+    // Opening straight from a shared #case-… link is a deliberate one-off on mount.
+    const fromHash = window.location.hash.match(/^#case-(.+)$/);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (fromHash) open(fromHash[1]);
     return () => window.removeEventListener(OPEN_CASE_EVENT, onOpen);
   }, [open]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (!dialogRef.current?.open) return;
+      if (e.key === "ArrowRight") step(1);
+      if (e.key === "ArrowLeft") step(-1);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [step]);
 
   return (
     <>
@@ -70,20 +100,24 @@ export function CaseFiles() {
         ref={dialogRef}
         className="drawer"
         aria-labelledby="case-title"
-        onClick={(e) => e.target === dialogRef.current && dialogRef.current.close()}
-        onClose={() => setActive(null)}
+        onClick={(e) => e.target === dialogRef.current && close()}
+        onClose={() => {
+          setActive(null);
+          if (window.location.hash.startsWith("#case-")) history.replaceState(null, "", window.location.pathname);
+        }}
       >
-        {active && <CaseDetail file={active} onClose={() => dialogRef.current?.close()} />}
+        {active && <CaseDetail file={active} onClose={close} onStep={step} />}
       </dialog>
     </>
   );
 }
 
-function CaseDetail({ file: c, onClose }: { file: CaseFile; onClose: () => void }) {
+function CaseDetail({ file: c, onClose, onStep }: { file: CaseFile; onClose: () => void; onStep: (delta: number) => void }) {
+  const position = cases.findIndex((f) => f.id === c.id) + 1;
   return (
     <div className="flex min-h-full flex-col">
       <div className="panel-head sticky top-0 z-10 bg-panel">
-        <span className="label text-muted">Case file · {c.org}</span>
+        <span className="label text-muted">Case file {position} of {cases.length} · {c.org}</span>
         <button type="button" onClick={onClose} className="kbd hover:text-bright" aria-label="Close case file">
           Esc
         </button>
@@ -130,6 +164,14 @@ function CaseDetail({ file: c, onClose }: { file: CaseFile; onClose: () => void 
           <span className="label mr-2">Measured</span>
           {c.measured}
         </p>
+
+        <div className="flex items-center justify-between gap-3 border-t border-line pt-5">
+          <button type="button" onClick={() => onStep(-1)} className="label hover:!text-bright" data-cta="case_prev">← Previous file</button>
+          <a href={`mailto:${person.email}?subject=${encodeURIComponent(`About the ${c.title.toLowerCase()}`)}`} data-cta="case_email" className="btn !min-h-10 !px-4 text-[.875rem]">
+            Ask about this one
+          </a>
+          <button type="button" onClick={() => onStep(1)} className="label hover:!text-bright" data-cta="case_next">Next file →</button>
+        </div>
       </div>
     </div>
   );

@@ -51,7 +51,7 @@ export default function Home() {
         <section className="relative" aria-labelledby="hero-title">
           <div className="grid-ground pointer-events-none absolute inset-0" aria-hidden="true" />
           <div className="wrap relative grid items-center gap-10 pb-12 pt-12 sm:pt-16 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:pb-16 lg:pt-20">
-            <div>
+            <div className="order-1">
               <p className="label flex items-center gap-2">
                 <span className="live-dot" aria-hidden="true" />
                 Operator who builds · Fractional
@@ -88,13 +88,14 @@ export default function Home() {
                 ))}
               </ul>
             </div>
-            <Pipeline />
+            <div className="order-3 lg:order-2">
+              <Pipeline />
+            </div>
+            <div className="order-2 lg:order-3 lg:col-span-2 lg:pt-4">
+              <MetricsReel />
+            </div>
           </div>
         </section>
-
-        <div className="wrap pb-16 sm:pb-24">
-          <MetricsReel />
-        </div>
 
         <section id="work" className="scroll-mt-16 border-t border-line py-16 sm:py-24" aria-labelledby="work-title">
           <div className="wrap">
