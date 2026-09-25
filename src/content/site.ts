@@ -255,6 +255,7 @@ export const reels: Reel[] = [
 export type Project = {
   id: string;
   title: string;
+  status: string;
   metric: { value: string; unit: string };
   body: string;
   stack: string;
@@ -265,6 +266,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     id: "mcp",
+    status: "Working prototype",
     title: "Video editing over MCP",
     metric: { value: "43", unit: "MCP tools" },
     body: "An MCP server and Blender add-on that edit the video timeline from natural language: cut, trim, slip, ripple-delete. My reels pipeline drives it end to end — footage understanding, script, edit decision list, headless render.",
@@ -274,6 +276,7 @@ export const projects: Project[] = [
   },
   {
     id: "atlas",
+    status: "Live demo",
     title: "Accelerator atlas",
     metric: { value: "7,439", unit: "companies" },
     body: "YC, EF, SPC and Speedrun scraped into one store: 1,818 founders across 81 batches, with a searchable explorer. The public demo is a sample; the full dataset is on request.",
@@ -283,6 +286,7 @@ export const projects: Project[] = [
   },
   {
     id: "voice",
+    status: "Running on this site",
     title: "Voice agent, no backend",
     metric: { value: "0", unit: "keys or servers" },
     body: "A voice agent that answers spoken questions about my work. The browser does the speech recognition and the speaking; answers are retrieved from published content and cited; anything it can't source, it refuses. Nothing to spend, nothing to leak.",
@@ -292,6 +296,7 @@ export const projects: Project[] = [
   },
   {
     id: "gbrain",
+    status: "Retired, Aug 2026",
     title: "Personal ops brain",
     metric: { value: "133", unit: "bot pushes" },
     body: "A two-way Telegram bot I ran for myself from June to August 2026: journal, decisions, habits, todos and a daily question graded A to E. Retired when I moved the same brain onto an iMessage rail.",
@@ -301,6 +306,7 @@ export const projects: Project[] = [
   },
   {
     id: "quant",
+    status: "Live trading halted",
     title: "Quant research stack",
     metric: { value: "1", unit: "of 25,267" },
     body: "out-of-sample strategy tests survived a 10% false-discovery-rate cut, and none cleared a Deflated Sharpe of 0.95. Backtester, tournaments and broker execution across 62 strategies.",
@@ -310,6 +316,7 @@ export const projects: Project[] = [
   },
   {
     id: "scout",
+    status: "Working prototype",
     title: "Founder scout",
     metric: { value: "$0.90", unit: "for 862 LLM calls" },
     body: "A multi-agent pipeline that ranks startup founders from public data, with a budget cap and a human approval gate before scoring weights change.",
@@ -357,9 +364,9 @@ export const principles = [
 ] as const;
 
 export const offers = [
-  { step: "Diagnose", title: "Operations Audit", meta: "2 weeks · fixed diagnostic", body: "I map the manual work in one function, measure hours and volume per workflow, and rank what to automate by hours returned.", gets: ["Workflow map with baseline numbers", "Ranked automation backlog", "Scope for the first sprint"] },
-  { step: "Build", title: "Automation Sprint", meta: "Fixed scope", body: "One workflow from the ranked backlog: built, measured against its baseline, and handed to your team.", gets: ["The system, running in production", "Before-and-after numbers", "Runbook and a named owner"] },
-  { step: "Run", title: "Fractional Retainer", meta: "Monthly", body: "I own your ops-automation backlog: ship the next build, keep live systems running, and report against baseline each month.", gets: ["Builds shipped off the ranked backlog", "Live systems monitored and maintained", "Monthly report against baseline"] },
+  { step: "Diagnose", title: "Operations Audit", trigger: "When the team is visibly drowning but nobody can name which workflow is doing it.", meta: "2 weeks · fixed diagnostic", body: "I map the manual work in one function, measure hours and volume per workflow, and rank what to automate by hours returned.", gets: ["Workflow map with baseline numbers", "Ranked automation backlog", "Scope for the first sprint"] },
+  { step: "Build", title: "Automation Sprint", trigger: "When you already know which workflow, and you want it gone rather than studied.", meta: "Fixed scope", body: "One workflow from the ranked backlog: built, measured against its baseline, and handed to your team.", gets: ["The system, running in production", "Before-and-after numbers", "Runbook and a named owner"] },
+  { step: "Run", title: "Fractional Retainer", trigger: "When the backlog regenerates faster than anyone clears it.", meta: "Monthly", body: "I own your ops-automation backlog: ship the next build, keep live systems running, and report against baseline each month.", gets: ["Builds shipped off the ranked backlog", "Live systems monitored and maintained", "Monthly report against baseline"] },
 ] as const;
 
 // Only rendered once real quotes exist. Never add a placeholder here.

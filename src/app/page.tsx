@@ -40,6 +40,7 @@ export default function Home() {
             <a href="#work" className="label hidden hover:!text-bright sm:inline">Work</a>
             <a href="#proof" className="label hidden hover:!text-bright sm:inline">Proof</a>
             <a href="#offers" className="label hidden hover:!text-bright sm:inline">Offers</a>
+            <Link href="/proof" data-cta="nav_ledger" className="label hidden hover:!text-bright sm:inline">Ledger</Link>
             <Link href="/life" data-cta="nav_life" className="label hover:!text-bright">Life</Link>
             <PaletteButton />
             <a href="#contact" data-cta="nav_contact" className="label rounded-full border border-line-2 px-3 py-1.5 !text-bright hover:border-dim hover:bg-panel-2">Contact</a>
@@ -115,7 +116,7 @@ export default function Home() {
 
         <section id="proof" className="scroll-mt-16 border-t border-line py-16 sm:py-24" aria-labelledby="proof-title">
           <div className="wrap">
-            <SectionHead id="proof" label="Proof of work" title="Things I built on my own time." />
+            <SectionHead id="proof" label="Proof of work" title="Things I built on my own time." aside="Every measured result, company by company, is in the ledger." />
 
             <article className="panel overflow-hidden">
               <div className="grid gap-8 p-5 sm:p-8 lg:grid-cols-[1fr_1.5fr] lg:gap-12">
@@ -143,7 +144,10 @@ export default function Home() {
             <div className="mt-4 grid gap-4 md:grid-cols-3 md:[&>*:last-child:nth-child(3n+1)]:col-span-3">
               {[atlas, ...others].map((p) => (
                 <article key={p.id} className="panel flex flex-col gap-4 p-5 sm:p-6">
-                  <h3 className="text-[1.25rem] font-bold text-bright" style={{ fontStretch: "112%" }}>{p.title}</h3>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h3 className="text-[1.25rem] font-bold text-bright" style={{ fontStretch: "112%" }}>{p.title}</h3>
+                    <span className="label rounded-full border border-line-2 px-2 py-1 !text-[.625rem]">{p.status}</span>
+                  </div>
                   <p className="flex flex-wrap items-baseline gap-2 text-bright">
                     <span className="num text-[2.5rem] leading-none">{p.metric.value}</span>
                     <span className="unit text-[.8125rem] text-muted">{p.metric.unit}</span>
@@ -207,6 +211,7 @@ export default function Home() {
                   </p>
                   <h3 className="text-[1.375rem] font-bold text-bright" style={{ fontStretch: "112%" }}>{o.title}</h3>
                   <p className="unit text-[.8125rem] text-text">{o.meta}</p>
+                  <p className="text-[.9375rem] text-text">{o.trigger}</p>
                   <p className="text-muted">{o.body}</p>
                   <ul className="mt-auto grid gap-2 border-t border-line pt-4">
                     {o.gets.map((g) => (
