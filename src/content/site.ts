@@ -31,6 +31,7 @@ export const links: {
 
 export type Metric = {
   label: string;
+  caseId?: string;
   value: string;
   from?: string;
   approx?: boolean;
@@ -40,18 +41,18 @@ export type Metric = {
 };
 
 export const metrics: Metric[] = [
-  { label: "Operational losses cut", value: "$210K", approx: true, unit: "/month", caption: "Dump and in-transit losses, removed by rebuilding warehouse and store flows.", org: "FirstClub" },
-  { label: "Revenue reconciliation", value: "99.6%", unit: "matched", caption: "of payment-platform deposit dollars traced to a specific sale, in a reconciliation that runs twice a day.", org: "Soma" },
-  { label: "Zero to one", from: "0", value: "50K", unit: "orders/day", caption: "Warehousing-as-a-Service, built as sole PM across 3 warehouses and 400 suppliers.", org: "Meesho" },
-  { label: "AI agent harness", value: "1,348", unit: "verified actions", caption: "in 11 days. Servicing work routed to an AI agent with the right skill, every write read back before it counts.", org: "Soma" },
+  { label: "Operational losses cut", caseId: "losses", value: "$210K", approx: true, unit: "/month", caption: "Dump and in-transit losses, removed by rebuilding warehouse and store flows.", org: "FirstClub" },
+  { label: "Revenue reconciliation", caseId: "revcon", value: "99.6%", unit: "matched", caption: "of payment-platform deposit dollars traced to a specific sale, in a reconciliation that runs twice a day.", org: "Soma" },
+  { label: "Zero to one", caseId: "waas", from: "0", value: "50K", unit: "orders/day", caption: "Warehousing-as-a-Service, built as sole PM across 3 warehouses and 400 suppliers.", org: "Meesho" },
+  { label: "AI agent harness", caseId: "harness", value: "1,348", unit: "verified actions", caption: "in 11 days. Servicing work routed to an AI agent with the right skill, every write read back before it counts.", org: "Soma" },
   { label: "Delivery promise", value: "−50%", unit: "SLA breaches", caption: "Delivery-promise engine rebuilt as a self-refreshing rule engine, on 100K+ orders a week.", org: "FirstClub" },
-  { label: "Caller context", value: "90%", unit: "identified", caption: "of inbound callers matched to their policies, billing and tickets the moment the conversation opens.", org: "Soma" },
+  { label: "Caller context", caseId: "sidepanel", value: "90%", unit: "identified", caption: "of inbound callers matched to their policies, billing and tickets the moment the conversation opens.", org: "Soma" },
   { label: "In-store WMS", value: "−55%", unit: "item-missing complaints", caption: "In-store warehouse management system, live across every store. Cycle time down 10%.", org: "FirstClub" },
-  { label: "Manual work removed", value: "3", unit: "FTEs", caption: "A Python workflow that reconciles orders daily and files refund claims automatically.", org: "Meesho" },
+  { label: "Manual work removed", caseId: "claims", value: "3", unit: "FTEs", caption: "A Python workflow that reconciles orders daily and files refund claims automatically.", org: "Meesho" },
   { label: "Analytics", value: "−95%", unit: "analyst SQL time", caption: "An MCP integration on the BI stack, rolled out company-wide.", org: "FirstClub" },
   { label: "Marketplace fulfilment", from: "40%", value: "<5%", unit: "order leakage", caption: "Fixed across pricing, discovery and inventory.", org: "Meesho" },
   { label: "Document spine", value: "13,656", unit: "documents", caption: "indexed by content into one source of truth; 32% of file paths were duplicates. Rebuilt every 10 minutes.", org: "Soma" },
-  { label: "Client comms", value: "431", unit: "texts dispatched", caption: "to 258 clients across 25 dispatch days, each inside that client's own time-zone window.", org: "Soma" },
+  { label: "Client comms", caseId: "comms", value: "431", unit: "texts dispatched", caption: "to 258 clients across 25 dispatch days, each inside that client's own time-zone window.", org: "Soma" },
   { label: "Patent", value: "20x", unit: "faster", caption: "Neural architecture search optimizer, patented and presented at a top-tier computer vision conference.", org: "Samsung R&D" },
 ];
 

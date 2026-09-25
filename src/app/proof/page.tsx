@@ -7,10 +7,6 @@ export const metadata: Metadata = {
   description: "Every measured result, by company and in order, with what it was measured against.",
 };
 
-// One row per result. Where a case file covers it, the row links to it.
-const caseFor = (org: string, label: string) =>
-  cases.find((c) => c.org === org && (c.title.toLowerCase().includes(label.toLowerCase().split(" ")[0]) || c.caption.toLowerCase().includes(label.toLowerCase())));
-
 export default function Proof() {
   return (
     <>
@@ -52,7 +48,7 @@ export default function Proof() {
 
                 <ol className="divide-y divide-line">
                   {rows.map((m) => {
-                    const file = caseFor(m.org, m.label);
+                    const file = cases.find((c) => c.id === m.caseId);
                     return (
                       <li key={m.label} className="grid gap-2 py-5 sm:grid-cols-[14rem_1fr] sm:gap-8">
                         <p className="flex flex-wrap items-baseline gap-x-2 text-bright">
