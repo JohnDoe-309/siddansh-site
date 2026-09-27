@@ -26,7 +26,7 @@ export const links: {
   linkedin: null,
   mcpRepo: null,
   atlasRepo: "https://github.com/JohnDoe-309/accelerator-atlas",
-  atlasDemo: "https://siddansh-atlas.vercel.app",
+  atlasDemo: "https://sidbohra-atlas.vercel.app",
 };
 
 export type Metric = {
