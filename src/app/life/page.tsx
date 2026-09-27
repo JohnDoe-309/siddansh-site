@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Carousel } from "@/components/Carousel";
+import { Intro } from "@/components/Intro";
 import { LifeFeed } from "@/components/LifeFeed";
 import { ShowcasePane, type PaneItem } from "@/components/ShowcasePane";
 import { feed, lifeIntro, verbs } from "@/content/life";
@@ -48,6 +50,8 @@ export default function Life() {
         <span className="blob blob-3" />
       </div>
 
+      <Intro name={person.name} posters={PANE.map((p) => `/life/${p.id}.jpg`)} />
+
       <div className="relative z-10">
         <header className="border-b border-white/10">
           <div className="wrap flex h-14 items-center justify-between gap-4">
@@ -75,7 +79,14 @@ export default function Life() {
             </dl>
           </section>
 
-          <section className="wrap pb-16 sm:pb-20" aria-label="Showreel">
+          <section className="pb-16 sm:pb-20" aria-label="Showreel">
+            <div className="wrap">
+              <Carousel items={PANE} />
+            </div>
+          </section>
+
+          <section className="wrap pb-16 sm:pb-20" aria-label="One at a time">
+            <p className="label mb-5">Or one at a time</p>
             <ShowcasePane items={PANE} />
           </section>
 
