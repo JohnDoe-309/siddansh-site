@@ -1,97 +1,81 @@
-// Outside-work page. Same rule as the work site: nothing here that isn't true.
-// Clips and stills are all my own footage.
+// The outside-work feed. Same rule as the work site: nothing here that isn't true.
+// Every clip is my own footage. Drums and surf have no clips yet, so they aren't in the grid.
 
 export const lifeIntro = {
   eyebrow: "Outside work",
-  headline: "I bike, trek, dive, swim, run — and film all of it.",
-  sub: "Bengaluru. 481 raw clips in the library, 36 finished reels, a scuba-discovery platform mid-build, and a pothole survey for my own city that I re-scoped the moment I found three of its four layers already solved.",
+  headline: "Dive, ride, trek, swim, surf, drum — and film all of it.",
+  sub: "Bengaluru. Open Water certified. 481 raw clips in the library and 36 finished reels, all cut by a pipeline I wrote. Below is the footage, not the description of it.",
   stats: [
     { value: "36", label: "reels finished" },
     { value: "481", label: "raw clips shot" },
     { value: "8", label: "places on the reel list" },
-    { value: "5", label: "of the reels are dives" },
+    { value: "Open Water", label: "dive certification" },
   ],
 };
 
-export const verbs = ["Bike", "Trek", "Dive", "Swim", "Run", "Film"] as const;
+export const verbs = ["Dive", "Ride", "Trek", "Swim", "Surf", "Drums", "Film"] as const;
 
-export type Activity = {
-  id: string;
-  verb: string;
-  line: string;
-  tint: "cyan" | "magenta" | "lime" | "amber" | "violet";
-  clip?: { src: string; poster: string };
-  big?: string;
-};
+export type Tint = "cyan" | "magenta" | "lime" | "amber" | "violet";
 
-export const activities: Activity[] = [
+export type FeedItem =
+  | { kind: "clip"; id: string; activity: string; title: string; place?: string; tint: Tint; span?: "wide" | "tall" }
+  | { kind: "note"; id: string; activity: string; title: string; body: string; facts: string[]; tint: Tint; span?: "wide" };
+
+// Order is the feed order. Clips and notes interleave so the page never repeats a rhythm.
+export const feed: FeedItem[] = [
+  { kind: "clip", id: "dive_mine", activity: "Dive", title: "Reef, on a drift", tint: "cyan", span: "wide" },
+  { kind: "clip", id: "bengaluru_roads", activity: "Ride", title: "Bengaluru, after the rain", tint: "amber", span: "tall" },
   {
-    id: "bike",
-    verb: "Bike",
-    line: "A KTM 390 Duke and Bengaluru's roads. Those roads are also why Raste Gundi exists.",
-    tint: "amber",
-    clip: { src: "/life/bengaluru_roads.mp4", poster: "/life/bengaluru_roads.jpg" },
-  },
-  {
-    id: "trek",
-    verb: "Trek",
-    line: "The Himalayas, on foot, with the camera along for it.",
-    tint: "lime",
-    clip: { src: "/life/art_himalayas.mp4", poster: "/life/art_himalayas.jpg" },
-  },
-  {
-    id: "dive",
-    verb: "Dive",
-    line: "Drift dives and reefs. Five of my finished reels came back up with me.",
+    kind: "note",
+    id: "under-water",
+    activity: "Dive",
+    title: "Most of what I film, I filmed underwater.",
+    body: "Open Water certified, and most of the library came back up with me. It turned into a build: a dive-discovery platform, South-East Asia first, with a map of sites from open data and structured reef summaries. Phase 1 is under construction, which is the honest status rather than a soft launch.",
+    facts: ["Open Water certified", "5 dive reels finished", "Next.js · FastAPI · PostGIS"],
     tint: "cyan",
-    clip: { src: "/life/dive_mine.mp4", poster: "/life/dive_mine.jpg" },
   },
+  { kind: "clip", id: "dive_drift", activity: "Dive", title: "Drift", tint: "cyan" },
+  { kind: "clip", id: "art_himalayas", activity: "Trek", title: "The Himalayas", tint: "lime", span: "tall" },
+  { kind: "clip", id: "perahera_text", activity: "Film", title: "Perahera", place: "Kandy", tint: "violet" },
+  { kind: "clip", id: "dive_descent", activity: "Dive", title: "Descent", tint: "cyan" },
   {
-    id: "swim",
-    verb: "Swim",
-    line: "Water turns up in my footage more than anything else. That isn't a coincidence.",
-    tint: "violet",
-    clip: { src: "/life/vivid_water.mp4", poster: "/life/vivid_water.jpg" },
-  },
-  {
-    id: "run",
-    verb: "Run",
-    line: "Roads again, slower, no engine.",
-    tint: "magenta",
-    big: "RUN",
-  },
-  {
-    id: "film",
-    verb: "Film",
-    line: "36 reels cut from 481 clips by a pipeline I wrote: the footage gets understood, a script gets written, an edit list gets compiled, Blender renders it.",
-    tint: "cyan",
-    clip: { src: "/reels/perahera_text.mp4", poster: "/reels/perahera_text.jpg" },
-  },
-];
-
-export const chapters = [
-  {
+    kind: "note",
     id: "roads",
-    kicker: "Raste Gundi",
+    activity: "Ride",
     title: "A pothole survey for Bengaluru, cut down to the gap.",
-    body: "I planned a bike-mounted road survey off the Duke, with a public accountability loop for BBMP. A market scan then killed three quarters of it: phone-camera road survey is solved by several vendors, and citizen complaint intake is solved here by a platform with 607,000 registered users. Nobody publishes a government performance scoreboard, so that's the layer worth building. Capex to start: nothing. It's a plan on the shelf, not a product.",
-    facts: ["Plan revised 6 Sep 2026", "7 decisions recorded", "3 of 4 layers dropped after the scan"],
-    tint: "amber" as const,
+    body: "I planned a bike-mounted road survey off the Duke, with a public accountability loop for the city. A market scan killed three quarters of it: phone-camera road survey is solved by several vendors, and citizen complaint intake is solved here by a platform with 607,000 registered users. Nobody publishes a government performance scoreboard, so that's the layer worth building.",
+    facts: ["KTM 390 Duke", "Plan revised 6 Sep 2026", "3 of 4 layers dropped after the scan"],
+    tint: "amber",
+    span: "wide",
   },
+  { kind: "clip", id: "langkawi", activity: "Film", title: "Langkawi at dawn", tint: "cyan" },
+  { kind: "clip", id: "vivid_water", activity: "Swim", title: "Water, close up", tint: "violet" },
+  { kind: "clip", id: "bangkok_neon", activity: "Film", title: "Bangkok after dark", tint: "magenta", span: "tall" },
+  { kind: "clip", id: "dive_pulse", activity: "Dive", title: "Pulse", tint: "cyan" },
+  { kind: "clip", id: "goa_real", activity: "Film", title: "Goa", tint: "amber" },
   {
-    id: "scuba",
-    kicker: "Scuba platform",
-    title: "The diving turned into a build.",
-    body: "A dive-discovery platform, South-East Asia first: a map of sites from open data, natural-language search, structured reef summaries and a conservation volunteer board. Phase 1 is under construction, and that's the honest status rather than a soft launch.",
-    facts: ["Next.js · FastAPI · Postgres + PostGIS", "MapLibre, no API key", "Phase 1 MVP in progress"],
-    tint: "cyan" as const,
+    kind: "note",
+    id: "pipeline",
+    activity: "Film",
+    title: "The edit is automated. The eye isn't.",
+    body: "I shoot it, then my own pipeline cuts it: each clip gets understood, a script gets written, an edit decision list gets compiled, and Blender renders the result. 36 reels have come out the other end, from 481 raw clips.",
+    facts: ["43 MCP tools driving Blender", "Footage understanding → script → edit list → render"],
+    tint: "violet",
   },
+  { kind: "clip", id: "sl_ceylon", activity: "Film", title: "Ceylon", tint: "lime" },
+  { kind: "clip", id: "travel_vietnam", activity: "Film", title: "Vietnam", tint: "lime" },
+  { kind: "clip", id: "deep_silence", activity: "Dive", title: "No signal, no thoughts", tint: "cyan", span: "wide" },
+  { kind: "clip", id: "nyc_nights", activity: "Film", title: "New York nights", tint: "magenta" },
   {
+    kind: "note",
     id: "tools",
-    kicker: "Tools for one user",
+    activity: "Film",
     title: "I write software for an audience of me.",
-    body: "A personal brain that takes a journal entry, a decision, a habit or a todo, asks a question every day and grades the answer A to E. It ran as a Telegram bot for two months and now lives on an iMessage rail. A Mac dashboard renders the lot on my desktop. And a quant research stack whose main output is telling me my strategies don't work.",
-    facts: ["Mac dashboard: 3,087 lines of Swift, 53 tests", "Quant stack: 1 survivor in 25,267 tests", "Telegram → iMessage, Jun–Aug 2026"],
-    tint: "violet" as const,
+    body: "A personal brain that takes a journal entry, a decision, a habit or a todo, asks a question every day and grades the answer A to E. It ran as a Telegram bot for two months and now lives on an iMessage rail. A Mac dashboard renders the lot on my desktop.",
+    facts: ["3,087 lines of Swift, 53 tests", "Telegram → iMessage, Jun–Aug 2026"],
+    tint: "violet",
   },
 ];
+
+// Filters are generated from what actually has content, so nothing empty is ever offered.
+export const activities = Array.from(new Set(feed.map((f) => f.activity)));
