@@ -5,7 +5,7 @@ import { person } from "@/content/site";
 export const metadata: Metadata = {
   title: "Reconciling revenue across four rails",
   description:
-    "How a brokerage's revenue got tied out by hand across a bank, a payment platform and six wholesaler portals — and what replaced it. Method, numbers, and what still doesn't work.",
+    "How a brokerage's revenue got tied out by hand across a bank, a payment platform, 10+ wholesaler portals and 10+ carrier portals — and what replaced it. Method, numbers, and what still doesn't work.",
   robots: { index: false, follow: false },
 };
 
