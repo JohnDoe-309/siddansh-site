@@ -15,7 +15,7 @@ export default function OpenGraphImage() {
         </div>
         <div style={{ fontSize: 76, fontWeight: 700, lineHeight: 1.05, letterSpacing: -2, maxWidth: 980 }}>{person.headline}</div>
         <div style={{ display: "flex", gap: 56, fontSize: 30, color: "#e9ebee" }}>
-          <span>~$210K/mo losses cut</span>
+          <span>~$48K/wk losses cut</span>
           <span>0 → 50K orders/day</span>
           <span>99.6% reconciled</span>
         </div>
